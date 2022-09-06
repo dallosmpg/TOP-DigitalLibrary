@@ -1,0 +1,24 @@
+:root {
+
+}
+
+.book-input-form-wrapper {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    place-items: center;
+    justify-content: center;
+    border: 1px solid red;
+}
+
+.book-input {
+    box-sizing: border-box;
+    height: 50%;
+    width: 50%;
+    border: 1px solid black;
+
+}
+
+.hidden {
+    /* display: none; */
+}
