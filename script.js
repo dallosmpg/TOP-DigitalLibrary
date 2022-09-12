@@ -3,6 +3,8 @@ const bookCardWrapper = document.querySelector('.book-cards');
 const addNewBookBtn = document.querySelector('.add-book-btn');
 const addBookFormModal = document.querySelector('.add-book-form-modal');
 const confirmNewBookBtn = document.querySelector('.confirm-book-btn');
+const removeBookBtn = document.querySelector('.remove-book-btn');
+
 
 // * Form elements:
 const titleInput = document.querySelector('#title');
@@ -29,23 +31,21 @@ function addBookToPage(title, author, numOfPages, isItRead) {
   <h3>${author}</h3>
   </div>
   <p>The book is ${numOfPages} pages long.</p>
-  <button type="button">Read the book</button>
-  <button type="button">Remove book</button>
+  <button type="button" class="read-book-btn">Read the book</button>
+  <button type="button" class="remove-book-btn">Remove book</button>
   </div>
-  `; 
-
+  `;
   bookCardWrapper.innerHTML += bookCardTemplate
 }
 
 function addBookToLibrary(title, author, numOfPages, isItRead) {
-    const newBook = new Book(title, author, numOfPages, isItRead)
+    const newBook = new Book(title, author, numOfPages, isItRead);
     myLibrary.push(newBook);
     addBookToPage(title, author, numOfPages, isItRead);
 }
 
 function handleAddNewBookBtn(e) {
-  console.log(e);
-  addBookFormModal.classList.remove('hidden')
+  addBookFormModal.classList.remove('hidden');
 }
 
 function handleConfirmNewBook(e) {
@@ -53,9 +53,14 @@ function handleConfirmNewBook(e) {
   addBookFormModal.classList.add('hidden');
 }
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkein', 345, true);
-addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, true);
+function handleRemoveBookBtn(e) {
+  console.log(e);
+}
 
 console.log(myLibrary);
 addNewBookBtn.addEventListener('click', handleAddNewBookBtn);
 confirmNewBookBtn.addEventListener('click', handleConfirmNewBook);
+// removeBookBtn.addEventListener('click', handleRemoveBookBtn);
+
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkein', 345, true);
+addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, true);
