@@ -1,0 +1,1 @@
+- [ ] Create click out of modal dissapearing function
