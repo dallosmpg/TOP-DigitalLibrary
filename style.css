@@ -1,24 +1,64 @@
 :root {
-
+  --green: #a3d098;
+  --dark-green: #4fa345;
+  --light-green: #f2fcef;
+  --highlight-green: #f8fff8;
 }
 
-.book-input-form-wrapper {
-    display: grid;
-    height: 100vh;
-    width: 100vw;
-    place-items: center;
-    justify-content: center;
-    border: 1px solid red;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.book-input {
-    box-sizing: border-box;
-    height: 50%;
-    width: 50%;
-    border: 1px solid black;
-
+body {
+  height: 100vh;
+  width: 100vw;
 }
 
+.site-warpper {
+  display: grid;
+  grid-template-rows: 250px 1fr;
+}
+
+header {
+  border: 1px solid red;
+}
+.library-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  
+}
+.add-book-btn {
+  justify-self: end;
+}
+
+main {
+  border: 1px solid green;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(auto, 1fr));
+  
+}  
+.book-card {
+  background-color: var(--highlight-green);
+  border: 1px solid var(--dark-green);
+  border-radius: 10px;
+
+  box-sizing: content-box;
+  margin: 1rem;
+  padding: 1rem;
+
+  display: grid;
+  justify-items: center;
+}
+.add-book-form-modal {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
+}
 .hidden {
   display: none;
 }
