@@ -21,27 +21,33 @@ function Book(title, author, numOfPages, isItRead) {
     this.isItRead = isItRead;
     this.arrayID = myLibrary.length;
 }
-
-function addBookToPage(title, author, numOfPages, isItRead) {
-  const bookCardTemplate = `
-  <div class="book-card">
-  <div>
-  <h2>${title}</h2>
-  <p>by</p>
-  <h3>${author}</h3>
-  </div>
-  <p>The book is ${numOfPages} pages long.</p>
-  <button type="button" class="read-book-btn">Read the book</button>
-  <button type="button" class="remove-book-btn">Remove book</button>
-  </div>
-  `;
-  bookCardWrapper.innerHTML += bookCardTemplate
+Book.prototype.handleRemoveBookBtn = function (e) {
+  console.log(e);
+  console.log('It works!');
+}
+Book.prototype.handleReadBookBtn = function (e) {
+  console.log(e);
 }
 
 function addBookToLibrary(title, author, numOfPages, isItRead) {
     const newBook = new Book(title, author, numOfPages, isItRead);
     myLibrary.push(newBook);
-    addBookToPage(title, author, numOfPages, isItRead);
+
+    const arrayIndex = newBook.arrayID;
+    console.log(myLibrary[arrayIndex].title);
+    const bookCardTemplate = `
+  <div class="book-card" data-arrayID="${myLibrary[arrayIndex].arrayID}">
+    <div>
+      <h2>${myLibrary[arrayIndex].title}</h2>
+      <p>by</p>
+      <h3>${myLibrary[arrayIndex].author}</h3>
+    </div>
+    <p>The book is ${myLibrary[arrayIndex].numOfPages} pages long.</p>
+    <button type="button" class="read-book-btn">Read the book</button>
+    <button type="button" class="remove-book-btn" onclick="Book.prototype.handleRemoveBookBtn">Remove book</button>
+  </div>
+  `;
+  bookCardWrapper.innerHTML += bookCardTemplate
 }
 
 function handleAddNewBookBtn(e) {
@@ -53,14 +59,10 @@ function handleConfirmNewBook(e) {
   addBookFormModal.classList.add('hidden');
 }
 
-function handleRemoveBookBtn(e) {
-  console.log(e);
-}
 
 console.log(myLibrary);
 addNewBookBtn.addEventListener('click', handleAddNewBookBtn);
 confirmNewBookBtn.addEventListener('click', handleConfirmNewBook);
-// removeBookBtn.addEventListener('click', handleRemoveBookBtn);
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkein', 345, true);
 addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, true);
