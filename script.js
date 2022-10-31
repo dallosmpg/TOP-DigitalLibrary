@@ -15,52 +15,56 @@ const readInput = document.querySelector('#read');
 let myLibrary = [];
 
 // * Book constructor function
-function Book(title, author, numOfPages, isItRead) {
+function Book(title, author, numOfPages, isItRead, bookID) {
     this.title = title;
     this.author = author;
     this.numOfPages = numOfPages;
     this.isItRead = isItRead;
-    this.arrayID = myLibrary.length;
+    this.bookID = bookID;
 }
 
-// * Book prototype functions
-Book.prototype.handleRemoveBookBtn = function (e) {
+// * Book button functions
+function handleRemoveBookBtn(e) {
   console.log(e);
   console.log('It works!');
 }
-Book.prototype.handleReadBookBtn = function (e) {
+function handleReadBookBtn(e) {
   console.log(e);
 }
 
+function attachEventListenerToBookBtns() {
+  document.querySelectorAll('.read-book-btn').forEach(book => book.addEventListener('click', handleReadBookBtn));
+  document.querySelectorAll('.remove-book-btn').forEach(book => book.addEventListener('click', handleRemoveBookBtn));
+}
+
 // * Book card creating function
-function addBookToLibrary(title, author, numOfPages, isItRead) {
-    const newBook = new Book(title, author, numOfPages, isItRead);
+function addBookToLibrary(title, author, numOfPages, isItRead, bookID) {
+    const newBook = new Book(title, author, numOfPages, isItRead, bookID);
     myLibrary.push(newBook);
 
-    const arrayIndex = newBook.arrayID;
     const bookCardTemplate = `
-  <div class="book-card-${arrayIndex} book-card" data-arrayID="${myLibrary[arrayIndex].arrayID}">
+  <div class="book-card-${bookID} book-card" data-arrayID="${bookID}">
     <div>
-      <h2>${myLibrary[arrayIndex].title}</h2>
+      <h2>${title}</h2>
       <p>by</p>
-      <h3>${myLibrary[arrayIndex].author}</h3>
+      <h3>${author}</h3>
     </div>
-    <p>The book is ${myLibrary[arrayIndex].numOfPages} pages long.</p>
-    <button type="button" class="read-book-btn-${arrayIndex}">Read the book</button>
-    <button type="button" class="remove-book-btn-${arrayIndex}">Remove book</button>
+    <p>The book is ${numOfPages} pages long.</p>
+    <button type="button" class="read-book-btn-${bookID} read-book-btn">Read the book</button>
+    <button type="button" class="remove-book-btn-${bookID} remove-book-btn">Remove book</button>
   </div>
   `;
   bookCardWrapper.innerHTML += bookCardTemplate;
-  document.querySelector(`.remove-book-btn-${arrayIndex}`).addEventListener('click', myLibrary[arrayIndex].handleRemoveBookBtn);
-  document.querySelector(`.read-book-btn-${arrayIndex}`).addEventListener('click', myLibrary[arrayIndex].handleReadBookBtn);
 }
 
-// * INput handler functions
+// * Input handler functions
 function handleAddNewBookBtn(e) {
   addBookFormModal.classList.remove('hidden');
 }
 function handleConfirmNewBook(e) {
-  addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, readInput.value);
+  const bookID = myLibrary.length + 1;
+  addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, readInput.value, bookID);
+  attachEventListenerToBookBtns(bookID);
   addBookFormModal.classList.add('hidden');
 }
 
@@ -71,3 +75,4 @@ confirmNewBookBtn.addEventListener('click', handleConfirmNewBook);
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkein', 345, true);
 addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, true);
+attachEventListenerToBookBtns();
