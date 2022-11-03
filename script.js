@@ -25,8 +25,13 @@ function Book(title, author, numOfPages, isItRead, bookID) {
 
 // * Book button functions
 function handleRemoveBookBtn(e) {
-  console.log(e);
-  console.log('It works!');
+  const bookID = e.currentTarget.parentElement.dataset.arrayid;
+  const nodeToDelete = document.querySelector(`.book-card-${bookID}`);
+  const parentNode = nodeToDelete.parentElement;
+
+  parentNode.removeChild(nodeToDelete);
+  console.log(parentNode, nodeToDelete);
+  myLibrary.splice(e.currentTarget.parentElement.dataset.arrayid, 1);
 }
 function handleReadBookBtn(e) {
   console.log(e);
@@ -38,7 +43,9 @@ function attachEventListenerToBookBtns() {
 }
 
 // * Book card creating function
-function addBookToLibrary(title, author, numOfPages, isItRead, bookID) {
+function addBookToLibrary(title, author, numOfPages, isItRead) {
+    const bookID = myLibrary.length;
+
     const newBook = new Book(title, author, numOfPages, isItRead, bookID);
     myLibrary.push(newBook);
 
@@ -64,12 +71,11 @@ function handleAddNewBookBtn(e) {
 function handleConfirmNewBook(e) {
   const bookID = myLibrary.length + 1;
   addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, readInput.value, bookID);
-  attachEventListenerToBookBtns(bookID);
+  attachEventListenerToBookBtns();
   addBookFormModal.classList.add('hidden');
 }
 
 // * Event listeners
-console.log(myLibrary);
 addNewBookBtn.addEventListener('click', handleAddNewBookBtn);
 confirmNewBookBtn.addEventListener('click', handleConfirmNewBook);
 
