@@ -11,6 +11,10 @@ const authorInput = document.querySelector('#author');
 const pagesInput = document.querySelector('#pages');
 const readInput = document.querySelector('#read');
 
+// * Book btn templates
+const readBookBtnTemplate = `<button type="button" class="read-book-btn- read-book-btn">Read the book</button>`;
+const removeBookBtnTemplate = `<button type="button" class="remove-book-btn- remove-book-btn">Remove book</button>`;
+
 // * Book holder array
 let myLibrary = [];
 
@@ -30,11 +34,41 @@ function handleRemoveBookBtn(e) {
   const parentNode = nodeToDelete.parentElement;
 
   parentNode.removeChild(nodeToDelete);
-  console.log(parentNode, nodeToDelete);
   myLibrary.splice(e.currentTarget.parentElement.dataset.arrayid, 1);
 }
 function handleReadBookBtn(e) {
-  console.log(e);
+  e.currentTarget.parentElement.classList.add('the-book-is-read');
+  const button = document.createElement('button');
+  button.classList.add('unread-book');
+  button.textContent = `Unread the book`;
+  e.currentTarget.parentElement.appendChild(button);
+
+  const readBookBtn = e.currentTarget.parentElement.children[3];
+  e.currentTarget.parentElement.removeChild(readBookBtn);
+  const removeBookBtn = e.currentTarget.parentElement.children[2];
+  e.currentTarget.parentElement.removeChild(removeBookBtn);
+
+  const unreadBookBtn = document.querySelector('.unread-book');
+  unreadBookBtn.addEventListener('click', handleUnreadBookBtn);
+}
+
+function handleUnreadBookBtn(e) {
+  e.currentTarget.parentElement.classList.remove('the-book-is-read');
+  const bookID = e.currentTarget.parentElement.dataset.arrayid;
+
+  const rmBtn = document.createElement('button'); 
+  const rdBtn = document.createElement('button');  
+  rdBtn.textContent = 'Read the book';
+  rdBtn.classList.add(`read-book-btn-${bookID}`, `read-book-btn`);
+  rmBtn.textContent = 'Remove book'; 
+  rmBtn.classList.add(`remove-book-btn-${bookID}`, 'remove-book-btn');
+  e.currentTarget.parentElement.appendChild(rdBtn);
+  e.currentTarget.parentElement.appendChild(rmBtn);
+
+  const unreadBookBtn = document.querySelector('.unread-book');
+  e.currentTarget.parentElement.removeChild(unreadBookBtn);
+
+  attachEventListenerToBookBtns();
 }
 
 function attachEventListenerToBookBtns() {
