@@ -86,7 +86,9 @@ function addBookToLibrary(title, author, numOfPages, isItRead) {
   myLibrary.push(newBook);
 
   const bookCardTemplate = `
-  <div class="book-card-${bookID} book-card" data-arrayID="${bookID}">
+  <div class="book-card-${bookID} ${
+    isItRead ? 'the-book-is-read' : ''
+  } book-card" data-arrayID="${bookID}">
     <div class="book-content">
       <h2>${title}</h2>
       <p>by</p>
@@ -105,6 +107,15 @@ function handleAddNewBookBtn(e) {
   addBookFormModal.classList.remove('hidden');
 }
 function handleConfirmNewBook(e) {
+  const form = e.currentTarget.parentElement.parentElement;
+  if (
+    form.children[0].children[1].value === undefined ||
+    form.children[1].children[1].value === undefined ||
+    form.children[2].children[1].value === undefined
+  ) {
+    alert('Please fill all the fields!');
+    return;
+  }
   const bookID = myLibrary.length + 1;
   addBookToLibrary(
     titleInput.value,
@@ -120,8 +131,7 @@ function handleConfirmNewBook(e) {
 // * Event listeners
 addNewBookBtn.addEventListener('click', handleAddNewBookBtn);
 confirmNewBookBtn.addEventListener('click', handleConfirmNewBook);
-console.log('🚀 ~ file: script.js:123 ~ confirmNewBookBtn', confirmNewBookBtn);
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkein', 345, true);
-addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, true);
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkein', 345, false);
+addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, false);
 attachEventListenerToBookBtns();
