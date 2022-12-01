@@ -125,3 +125,6 @@ console.log('🚀 ~ file: script.js:123 ~ confirmNewBookBtn', confirmNewBookBtn)
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkein', 345, true);
 addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, true);
 attachEventListenerToBookBtns();
+function newFunctionForTest(name) {
+  return name.toUpperCase();
+}
