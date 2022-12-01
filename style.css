@@ -1,5 +1,6 @@
 :root {
   --background: #83A8A7;
+  --background-darker: #69c9c8;
   --highlight: #FAFFFF;
   --mid: #D7F5F4;
   --complementer: #A88572;
@@ -114,8 +115,64 @@ main {
   display: none;
 }
 
+.add-book-form {
+  width: 70%;
+  margin: 0 auto;
+  background: var(--complementer);
+  color: var(--background);
+  text-outline: #eefcfc 1px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.add-book-form > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: .3rem 0;
+  height: 40px;
+  background: #605050;
+}
+label, input, button {
+  display: inline-block;
+}
+label {
+  width: 30%;
+  text-align: right;
+}
+label+input {
+  width: 30%;
+  margin: 0 30% 0 4%;
+}
+input+input {
+  float: right;
+}
+.add-book-form button {
+  justify-self: center;
+  box-sizing: border-box;
+  border: var(--complementer) solid 2px;
+  padding: .3em .3em;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  background: var(--background);
+
+  transition: all .2s ease-in-out;
+}
+.add-book-form button:hover {
+  border: var(--background-darker) solid 2px;
+  background-color: var(--background-darker);
+  box-sizing: content-box;
+
+  transition: all .2s ease-in-out;
+}
+
 .the-book-is-read {
   background-color: rgba(0,0,0,.7);
+  color: #7e7d7d;
 
   position: relative;
 }
@@ -123,6 +180,9 @@ main {
 .the-book-is-read::after {
   content: 'READ';
   position: absolute;
-  top: 0;
-  left: 0
+  top: 40px;
+  right: 10px;
+  transform: rotate(45deg);
+
+  font-size: 2rem;
 }
