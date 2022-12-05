@@ -35,33 +35,42 @@ function handleRemoveBookBtn(e) {
   myLibrary.splice(e.currentTarget.parentElement.dataset.arrayid, 1);
 }
 function handleReadBookBtn(e) {
-  e.currentTarget.parentElement.classList.add('the-book-is-read');
+  console.log(e.currentTarget.parentElement);
+  // * Add book is read class -> CSS styling
+  const parentBookCard = e.currentTarget.parentElement;
+  parentBookCard.classList.add('the-book-is-read');
+
+  // *Remove read book btn
+  parentBookCard.querySelector('.read-book-btn').remove();
+
+  // * Create and add Unread book btn
   const button = document.createElement('button');
   button.classList.add('unread-book');
   button.textContent = `Unread the book`;
-  e.currentTarget.parentElement.appendChild(button);
+  parentBookCard.appendChild(button);
 
-  const readBookBtn = e.currentTarget.parentElement.children[3];
-  e.currentTarget.parentElement.removeChild(readBookBtn);
-  const removeBookBtn = e.currentTarget.parentElement.children[2];
-  e.currentTarget.parentElement.removeChild(removeBookBtn);
-
-  const unreadBookBtn = document.querySelector('.unread-book');
-  unreadBookBtn.addEventListener('click', handleUnreadBookBtn);
+  button.addEventListener('click', handleUnreadBookBtn);
 }
 
 function handleUnreadBookBtn(e) {
   e.currentTarget.parentElement.classList.remove('the-book-is-read');
+  console.log(
+    '🚀 ~ file: script.js:55 ~ handleUnreadBookBtn ~ e.currentTarget',
+    e.currentTarget.parentElement
+  );
   const bookID = e.currentTarget.parentElement.dataset.arrayid;
 
-  const rmBtn = document.createElement('button');
   const rdBtn = document.createElement('button');
   rdBtn.textContent = 'Read the book';
   rdBtn.classList.add(`read-book-btn-${bookID}`, `read-book-btn`);
-  rmBtn.textContent = 'Remove book';
-  rmBtn.classList.add(`remove-book-btn-${bookID}`, 'remove-book-btn');
   e.currentTarget.parentElement.appendChild(rdBtn);
-  e.currentTarget.parentElement.appendChild(rmBtn);
+
+  if (!e.currentTarget.parentElement.querySelector('.remove-book-btn')) {
+    const rmBtn = document.createElement('button');
+    rmBtn.textContent = 'Remove book';
+    rmBtn.classList.add(`remove-book-btn-${bookID}`, 'remove-book-btn');
+    e.currentTarget.parentElement.appendChild(rmBtn);
+  }
 
   const unreadBookBtn = document.querySelector('.unread-book');
   e.currentTarget.parentElement.removeChild(unreadBookBtn);
@@ -95,11 +104,37 @@ function addBookToLibrary(title, author, numOfPages, isItRead) {
       <h3>${author}</h3>
     </div>
     <p>The book is ${numOfPages} pages long.</p>
-      <button type="button" class="read-book-btn-${bookID} read-book-btn">Read the book</button>
-      <button type="button" class="remove-book-btn-${bookID} remove-book-btn">Remove book</button>
+    ${
+      isItRead
+        ? ''
+        : `<button type="button" class="read-book-btn-${bookID} read-book-btn">Read the book</button>`
+    }
+    ${
+      isItRead
+        ? ''
+        : `<button type="button" class="remove-book-btn-${bookID} remove-book-btn">Remove book</button>`
+    }
   </div>
   `;
   bookCardWrapper.innerHTML += bookCardTemplate;
+  // TODO - solve the removal of the other buttons when the book is read
+  if (isItRead) {
+    const unRdButton = document.createElement('button');
+    unRdButton.classList.add('unread-book');
+    unRdButton.textContent = `Unread the book`;
+    document
+      .querySelector(`.book-card-${bookID}`)
+      .appendChild(unRdButton)
+      .addEventListener('click', handleUnreadBookBtn);
+
+    const rmButton = document.createElement('button');
+    rmButton.classList.add('remove-book-btn');
+    rmButton.textContent = `Remove book`;
+    document
+      .querySelector(`.book-card-${bookID}`)
+      .appendChild(rmButton)
+      .addEventListener('click', handleRemoveBookBtn);
+  }
 }
 
 // * Input handler functions
@@ -108,14 +143,20 @@ function handleAddNewBookBtn(e) {
 }
 function handleConfirmNewBook(e) {
   const form = e.currentTarget.parentElement.parentElement;
+  console.log(
+    '🚀 ~ file: script.js:146 ~ handleConfirmNewBook ~ e.currentTarget.parentElement.parentElement',
+    e.currentTarget.parentElement.parentElement
+  );
+  console.log(form.querySelector('#title'));
   if (
-    form.children[0].children[1].value === undefined ||
-    form.children[1].children[1].value === undefined ||
-    form.children[2].children[1].value === undefined
+    form.querySelector('#title').value === '' ||
+    form.querySelector('#author').value === '' ||
+    form.querySelector('#pages').value === ''
   ) {
     alert('Please fill all the fields!');
     return;
   }
+  console.log(typeof form.querySelector('#title').value);
   const bookID = myLibrary.length + 1;
   addBookToLibrary(
     titleInput.value,
@@ -128,10 +169,17 @@ function handleConfirmNewBook(e) {
   addBookFormModal.classList.add('hidden');
 }
 
+// * Modal closing function
+window.addEventListener('click' || 'keydown', (e) => {
+  if (e.target === addBookFormModal) {
+    addBookFormModal.classList.toggle('hidden');
+  }
+});
+
 // * Event listeners
 addNewBookBtn.addEventListener('click', handleAddNewBookBtn);
 confirmNewBookBtn.addEventListener('click', handleConfirmNewBook);
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkein', 345, false);
-addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, false);
+addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, true);
 attachEventListenerToBookBtns();
