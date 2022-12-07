@@ -143,11 +143,6 @@ function handleAddNewBookBtn(e) {
 }
 function handleConfirmNewBook(e) {
   const form = e.currentTarget.parentElement.parentElement;
-  console.log(
-    '🚀 ~ file: script.js:146 ~ handleConfirmNewBook ~ e.currentTarget.parentElement.parentElement',
-    e.currentTarget.parentElement.parentElement
-  );
-  console.log(form.querySelector('#title'));
   if (
     form.querySelector('#title').value === '' ||
     form.querySelector('#author').value === '' ||
@@ -156,13 +151,12 @@ function handleConfirmNewBook(e) {
     alert('Please fill all the fields!');
     return;
   }
-  console.log(typeof form.querySelector('#title').value);
   const bookID = myLibrary.length + 1;
   addBookToLibrary(
     titleInput.value,
     authorInput.value,
     pagesInput.value,
-    readInput.value,
+    readInput.checked,
     bookID
   );
   attachEventListenerToBookBtns();
