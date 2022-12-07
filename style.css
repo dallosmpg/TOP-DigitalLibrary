@@ -65,6 +65,7 @@ main {
   grid-template-rows: repeat(auto-fill, minmax(auto, 1fr));
   gap: 30px;
   
+  margin: .7rem;
 }  
 .book-card {
   background-color: var(--highlight-green);
@@ -77,9 +78,8 @@ main {
   background-color: var(--complementer);
   color: var(--text);
 
-  box-sizing: content-box;
-  margin: 1rem;
-  padding: 1rem;
+  box-sizing: border-box;
+  padding: .7rem;
 
   display: grid;
   align-content: center;
@@ -174,6 +174,7 @@ button:hover {
   color: #7e7d7d;
 
   position: relative;
+  transition: all .5s ease;
 }
 
 .the-book-is-read::after {
