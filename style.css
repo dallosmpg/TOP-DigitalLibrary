@@ -61,8 +61,8 @@ header {
 
 main {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(auto, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
   
   margin: .7rem;
@@ -72,8 +72,8 @@ main {
   border: 1px solid var(--dark-green);
   border-radius: 10px;
 
-  min-width: 300px;
-  height: 100%;
+  min-width: 400px;
+  height: 300px;
 
   background-color: var(--complementer);
   color: var(--text);
@@ -82,8 +82,31 @@ main {
   padding: .7rem;
 
   display: grid;
-  align-content: center;
+  align-content: space-around;
   justify-content: center;
+
+  transition: all .5s ease;
+}
+.book-buttons {
+  align-self: end;
+  display: flex;
+
+  height: 2.5rem;
+}
+.book-buttons > button {
+  margin: 5px;
+  width: 210px;
+}
+.book-buttons .remove-book-btn {
+  color: crimson;
+
+  transition: all .2s ease;
+}
+.book-buttons .remove-book-btn:hover {
+  background-color: crimson;
+  color: white;
+
+  transition: all .2s ease;
 }
 .book-control-btns {
   align-self: end;
@@ -164,7 +187,6 @@ button {
 }
 button:hover {
   background-color: var(--background-darker);
-  box-sizing: content-box;
 
   transition: all .2s ease-in-out;
 }
@@ -180,9 +202,11 @@ button:hover {
 .the-book-is-read::after {
   content: 'READ';
   position: absolute;
-  top: 40px;
+  top: 100px;
   right: 10px;
   transform: rotate(45deg);
 
   font-size: 2rem;
+  color: red;
+  opacity: .8;
 }
