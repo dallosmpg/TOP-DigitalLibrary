@@ -17,12 +17,14 @@ const removeBookBtnTemplate = `<button type="button" class="remove-book-btn- rem
 const myLibrary = [];
 
 // * Book constructor function
-function Book(title, author, numOfPages, isItRead, bookID) {
-  this.title = title;
-  this.author = author;
-  this.numOfPages = numOfPages;
-  this.isItRead = isItRead;
-  this.bookID = bookID;
+class Book {
+  constructor(title, author, numOfPages, isItRead, bookID) {
+    this.title = title;
+    this.author = author;
+    this.numOfPages = numOfPages;
+    this.isItRead = isItRead;
+    this.bookID = bookID;
+  }
 }
 
 // * Book button functions
