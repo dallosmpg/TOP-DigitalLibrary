@@ -21,15 +21,8 @@ class Book {
     this.isItRead = isItRead;
     this.bookID = bookID;
     this.boundHandleRemoveBookBtn = this.handleRemoveBookBtn.bind(this);
-    // this.removeButton = document.querySelector(
-    //   `.remove-book-btn-${this.bookID}`
-    // );
     this.boundHandleReadBookBtn = this.handleReadBookBtn.bind(this);
-    // this.readButton = document.querySelector(`.read-book-btn-${this.bookID}`);
     this.boundHandleUnreadBookBtn = this.handleUnreadBookBtn.bind(this);
-    // this.unreadButton = document.querySelector(
-    //   `.unread-book-btn-${this.bookID}`
-    // );
     this.boundAttachEventListenerToBookBtns =
       this.attachEventListenerToBookBtns.bind(this);
   }
@@ -47,7 +40,6 @@ class Book {
   }
 
   handleRemoveBookBtn = function () {
-    console.log('im running');
     const nodeToDelete = document.querySelector(`.book-card-${this.bookID}`);
     const parentNode = nodeToDelete.parentElement;
 
@@ -61,7 +53,6 @@ class Book {
     const parentBookCard = document
       .querySelector(`.book-card-${this.bookID}`)
       .closest('.book-card');
-    console.log(parentBookCard);
     parentBookCard.classList.add('the-book-is-read');
 
     // * Remove read book btn
@@ -78,7 +69,6 @@ class Book {
   };
 
   handleUnreadBookBtn = () => {
-    console.log('handle unread btn click');
     const parentBookCard = document
       .querySelector(`.book-card-${this.bookID}`)
       .closest('.book-card');
@@ -87,7 +77,6 @@ class Book {
     const rdBtn = document.createElement('button');
     rdBtn.textContent = 'Read the book';
     rdBtn.classList.add(`read-book-btn-${bookID}`, `read-book-btn`);
-    console.log(parentBookCard.querySelector('.book-buttons'));
     parentBookCard.querySelector('.book-buttons').appendChild(rdBtn);
 
     if (!parentBookCard.querySelector('.remove-book-btn')) {
@@ -97,12 +86,10 @@ class Book {
       parentBookCard.querySelector('.book-buttons').appendChild(rmBtn);
     }
     const unreadBookBtn = parentBookCard.querySelector('.unread-book');
-    console.log('it gets here', parentBookCard, unreadBookBtn);
     parentBookCard.querySelector('.book-buttons').removeChild(unreadBookBtn);
 
     parentBookCard.classList.remove('the-book-is-read');
 
-    console.log(this);
     this.boundAttachEventListenerToBookBtns();
   };
 
@@ -128,74 +115,6 @@ class Book {
     }
   }
 }
-
-// * Book button functions
-// ! handle remove book btn
-// function handleRemoveBookBtn(e) {
-//   const nodeToDelete = e.target.closest('.book-card');
-//   const parentNode = nodeToDelete.parentElement;
-
-//   parentNode.removeChild(nodeToDelete);
-//   myLibrary.splice(nodeToDelete.dataset.arrayid, 1);
-// }
-
-// ! handle read book btn
-// function handleReadBookBtn(e) {
-//   console.log(e.currentTarget.parentElement);
-//   // * Add book is read class -> CSS styling
-//   const parentBookCard = e.target.closest('.book-card');
-//   parentBookCard.classList.add('the-book-is-read');
-
-//   // *Remove read book btn
-//   parentBookCard.querySelector('.read-book-btn').remove();
-
-//   // * Create and add Unread book btn
-//   const button = document.createElement('button');
-//   button.classList.add('unread-book');
-//   button.textContent = `Unread the book`;
-//   parentBookCard.querySelector('.book-buttons').appendChild(button);
-
-//   button.addEventListener('click', handleUnreadBookBtn);
-// }
-
-// ! handle unread book btn
-// function handleUnreadBookBtn(e) {
-//   console.log('handle unread btn click');
-//   const parentBookCard = e.target.closest('.book-card');
-//   const bookID = parentBookCard.dataset.arrayid;
-
-//   const rdBtn = document.createElement('button');
-//   rdBtn.textContent = 'Read the book';
-//   rdBtn.classList.add(`read-book-btn-${bookID}`, `read-book-btn`);
-//   console.log(parentBookCard.querySelector('.book-buttons'));
-//   parentBookCard.querySelector('.book-buttons').appendChild(rdBtn);
-
-//   if (!parentBookCard.querySelector('.remove-book-btn')) {
-//     const rmBtn = document.createElement('button');
-//     rmBtn.textContent = 'Remove book';
-//     rmBtn.classList.add(`remove-book-btn-${bookID}`, 'remove-book-btn');
-//     parentBookCard.querySelector('.book-buttons').appendChild(rmBtn);
-//   }
-//   const unreadBookBtn = parentBookCard.querySelector('.unread-book');
-//   console.log('it gets here', parentBookCard, unreadBookBtn);
-//   parentBookCard.querySelector('.book-buttons').removeChild(unreadBookBtn);
-
-//   parentBookCard.classList.remove('the-book-is-read');
-
-//   attachEventListenerToBookBtns();
-// }
-
-// function attachEventListenerToBookBtns() {
-//   console.log(myLibrary[0].bookID, this);
-//   document
-//     .querySelectorAll('.read-book-btn')
-//     .forEach((book) => book.addEventListener('click', this.handleReadBookBtn));
-//   document
-//     .querySelectorAll('.remove-book-btn')
-//     .forEach((book) =>
-//       book.addEventListener('click', () => this.handleRemoveBookBtn)
-//     );
-// }
 
 // * Book card creating function
 function addBookToLibrary(title, author, numOfPages, isItRead) {
