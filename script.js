@@ -171,16 +171,14 @@ function addBookToLibrary(title, author, numOfPages, isItRead) {
 }
 
 // * Input handler functions
-function handleAddNewBookBtn(e) {
+function handleAddNewBookBtn() {
   addBookFormModal.classList.remove('hidden');
 }
 function handleConfirmNewBook(e) {
   const form = e.currentTarget.parentElement.parentElement;
-  if (
-    form.querySelector('#title').value === '' ||
-    form.querySelector('#author').value === '' ||
-    form.querySelector('#pages').value === ''
-  ) {
+  const formTitelInput = form.querySelector('#title');
+  const formAuthorInput = form.querySelector('#author');
+  if (form.querySelector('#pages').value === '') {
     alert('Please fill all the fields!');
     return;
   }
