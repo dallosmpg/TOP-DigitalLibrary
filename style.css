@@ -210,3 +210,25 @@ button:hover {
   color: red;
   opacity: .8;
 }
+
+input {
+  outline: none;
+}
+input:invalid {
+  border: 3px red dotted;
+}
+input:valid {
+  border: 1px solid green;
+}
+
+.form-input {
+  position: relative;
+}
+.form-input > span {
+  display: inline-block;
+  position: absolute;
+  right: 25px;
+  background-color: black;
+  padding: .2rem;
+  border-radius: 5px;
+  }

@@ -45,7 +45,6 @@ class Book {
 
     parentNode.removeChild(nodeToDelete);
     myLibrary.splice(nodeToDelete.dataset.arrayid, 1);
-    this.boundAttachEventListenerToBookBtns();
   };
 
   handleReadBookBtn = () => {
@@ -171,17 +170,12 @@ function addBookToLibrary(title, author, numOfPages, isItRead) {
 }
 
 // * Input handler functions
-function handleAddNewBookBtn() {
+function handleAddNewBookBtn(e) {
   addBookFormModal.classList.remove('hidden');
+  confirmNewBookBtn.addEventListener('click', handleConfirmNewBook);
 }
 function handleConfirmNewBook(e) {
-  const form = e.currentTarget.parentElement.parentElement;
-  const formTitelInput = form.querySelector('#title');
-  const formAuthorInput = form.querySelector('#author');
-  if (form.querySelector('#pages').value === '') {
-    alert('Please fill all the fields!');
-    return;
-  }
+  e.preventDefault();
   const bookID = myLibrary.length;
   addBookToLibrary(
     titleInput.value,
@@ -203,7 +197,6 @@ window.addEventListener('click' || 'keydown', (e) => {
 
 // * Event listeners
 addNewBookBtn.addEventListener('click', handleAddNewBookBtn);
-confirmNewBookBtn.addEventListener('click', handleConfirmNewBook);
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkein', 345, false);
 addBookToLibrary('The Fellowship of the Ring', 'J.R.R. Tolkein', 564, true);
