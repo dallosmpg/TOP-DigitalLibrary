@@ -170,7 +170,7 @@ function addBookToLibrary(title, author, numOfPages, isItRead) {
 }
 
 // * Input handler functions
-function handleAddNewBookBtn(e) {
+function handleAddNewBookBtn() {
   addBookFormModal.classList.remove('hidden');
   confirmNewBookBtn.addEventListener('click', handleConfirmNewBook);
 }
